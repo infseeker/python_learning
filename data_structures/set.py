@@ -1,0 +1,8 @@
+bri = set(['Бразилия', 'Россия', 'Индия'])
+print('Индия' in bri)
+print('США' in bri)
+bric = bri.copy()
+bric.add('Китай')
+bric.issuperset(bri)
+bri.remove('Россия')
+print(bri & bric)  # OR bri.intersection(bric)
