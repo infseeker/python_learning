@@ -83,8 +83,7 @@ def e8():
 
     # Преобразуем число в последовательность цифр
     l = [int(i) for i in str(n)]
-
-    c = 4
+    c = 13
     m = 1
     r = 0
     for i in range(len(l) - c):
@@ -96,4 +95,64 @@ def e8():
     print(r)
 
 
-e8()
+def e9():
+    pass
+
+
+# Мой вариант - очень долгий, неоптимальный.
+def e10_1():
+    import time
+    limit = 10
+    result = 0
+    start_time = time.time()
+    for num in range(2, limit):
+        prime = True
+        for i in range(2, num):
+            if num % i == 0:
+                prime = False
+        if prime:
+            result += num
+    print(result)
+    print('Time:', time.time() - start_time, 'sec')
+
+
+# Намного быстрее
+# https://youtu.be/vuC9b5-XPo8
+def e10_2():
+    import time
+
+    limit = 2000000
+    is_prime_array = [True] * limit
+
+    def prime_sieve(prime_array):
+        summ = 0
+        for i in range(2, len(prime_array)):
+            if prime_array[i]:
+                summ += i
+                k = i + i
+                while k < len(prime_array):
+                    prime_array[k] = False
+                    k += i
+        return summ
+
+    start_time = time.time()
+    the_sum = prime_sieve(is_prime_array)
+
+    print(the_sum)
+    print("Time:", time.time() - start_time, 'Sec')
+
+
+# External lib - самый быстрый
+# https://github.com/nayuki/Project-Euler-solutions/blob/master/python/p010.py
+def e10_3():
+    import eulerlib
+    ans = sum(eulerlib.primes(1999999))
+    return ans
+
+
+import timeit
+
+t = timeit.timeit(lambda: e10_3(), number=1)
+print(t)
+# e10_2()
+# e10_3()
